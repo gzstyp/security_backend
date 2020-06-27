@@ -8,6 +8,7 @@
     <version>v1.0.0</version>
     <url>http://www.yinlz.com</url>
     <description>
+        打包时,先执行父工程的pom.xml的install命令,再在web或api或frontend执行package操作
         spring boot 2.3.x + spring security 构建模块化后端开发
         基于spring boot 2.x.x构建模块化开发,支持SqlSessionTemplate和mapper
         如果打包出错(可能是死循环依赖或相互依赖导致),先注解可打包的子模块的build节点,其子模块打包步骤:

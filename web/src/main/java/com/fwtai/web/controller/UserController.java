@@ -44,7 +44,7 @@ public class UserController{
     @PostMapping("/renewalToken")
     public void renewalToken(final HttpServletRequest request,final HttpServletResponse response){
         final PageFormData formData = ToolClient.getFormData(request);
-        final String access_token = formData.getString("access_token");
+        final String access_token = formData.getString("accessToken");
         try {
             final String userId = toolJWT.extractUserId(access_token);
             final HashMap<String,String> result = userService.buildToken(userId);

@@ -48,8 +48,8 @@ public class Swagger2{
     private Docket docket(final String groupName){
         final ParameterBuilder ticketPar = new ParameterBuilder();
         final List<Parameter> pars = new ArrayList<Parameter>();
-        ticketPar.name("access_token").description("access_token").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
-        ticketPar.name("refresh_token").description("refresh_token").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        ticketPar.name("accessToken").description("accessToken").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        ticketPar.name("refreshToken").description("refreshToken").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
         pars.add(ticketPar.build());
         return new Docket(DocumentationType.SWAGGER_2).groupName(groupName)//多版本时指定名称
           .apiInfo(apiInfo()).enable(true)//是否开启swagger
@@ -64,8 +64,8 @@ public class Swagger2{
 
     private List<ApiKey> securitySchemes() {
         final List<ApiKey> apiKeyList= new ArrayList();
-        apiKeyList.add(new ApiKey("access_token", "access_token","header"));
-        apiKeyList.add(new ApiKey("refresh_token", "refresh_token","header"));
+        apiKeyList.add(new ApiKey("accessToken", "accessToken","header"));
+        apiKeyList.add(new ApiKey("refreshToken", "refreshToken","header"));
         return apiKeyList;
     }
 

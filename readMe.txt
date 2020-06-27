@@ -1,4 +1,6 @@
 
+打包时,先执行父工程的pom.xml的install命令,再在web或api或frontend执行package操作
+
 依赖关系图
 
 --> 表示依赖关系;

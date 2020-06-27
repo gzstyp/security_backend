@@ -21,9 +21,9 @@ public final class ConfigFile implements Serializable{
 
     public final static String[] IGNORE_URLS = {"/","/error",URL_LOGIN_PAGE,URL_REGISTER,"/user/renewalToken","/**/notAuthorized","/user/logout","/webjars/**","/swagger-ui.html","/v2/api-docs","/swagge**","/api/v1.0/**","/**.ico","/swagger-resources","/swagger-resources/**"};
 
-    public final static String ACCESS_TOKEN = "access_token";
+    public final static String ACCESS_TOKEN = "accessToken";
 
-    public final static String REFRESH_TOKEN = "refresh_token";
+    public final static String REFRESH_TOKEN = "refreshToken";
 
 	/**自定义code及msg*/
 	public final static int code198 = 198;

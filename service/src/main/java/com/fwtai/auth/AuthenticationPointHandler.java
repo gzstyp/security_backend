@@ -27,10 +27,10 @@ public class AuthenticationPointHandler implements AuthenticationEntryPoint{
             switch (flag){
                 case 1:
                     //json = ToolClient.createJsonFail("更换access_token");
-                    System.out.println("更换access_token"+ RenewalToken.get());
+                    System.out.println("更换accessToken"+ RenewalToken.get());
                     break;
                 case 2:
-                    System.out.println("无效的refresh_token"+ RenewalToken.get());
+                    System.out.println("无效的refreshToken"+ RenewalToken.get());
                     json = ToolClient.tokenInvalid();
                     break;
                 case 3:
