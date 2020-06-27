@@ -263,8 +263,32 @@
         ORDER BY order_by
     </select>
 
-    <!--查看指定userid所有的权限菜单数据-->
+    <!--查看指定userid所有的权限菜单数据,若数据不对，使用下面的 getMenuData_ok_bakup-->
     <select id="getMenuData" resultType="HashMap" parameterType="String">
+        select lt.kid,lt.name,IF(lt.subset = 1 or sub.pid is not null,1,0) isParent,lt.pid from
+        (select sm.kid,sm.name,sm.subset,sm.order_by,sm.pid from sys_menu sm,(select menu_id from sys_user_menu where user_id = #{userId}
+        union
+        select srm.menu_id from sys_role_menu srm left join sys_user_role sur on sur.role_id = srm.role_id where sur.user_id = #{userId}
+        ) lb
+        where sm.kid = lb.menu_id) lt
+        left join (select sm.pid from sys_menu sm,(select menu_id from sys_user_menu where user_id = #{userId}
+        union
+            select srm.menu_id from sys_role_menu srm left join sys_user_role sur on sur.role_id = srm.role_id where sur.user_id = #{userId}
+        ) lb
+        where sm.kid = lb.menu_id group by sm.pid) sub on sub.pid = lt.kid order by order_by ASC
+    </select>
+
+    <!--查看指定userid所有的权限菜单数据-->
+    <select id="getMenuData_bakup_ok" resultType="HashMap" parameterType="String">
+        select menu_id,user_id from (select srm.menu_id,sur.user_id from sys_role_menu srm
+        left join sys_user_role sur on sur.role_id = srm.role_id
+        union
+        select sum.menu_id,sum.user_id from sys_user_menu sum
+        left join sys_menu sm on sm.kid = sum.menu_id) tb where user_id = #{userId}
+    </select>
+
+    <!--查看指定userid所有的权限菜单数据(最初的版本)-->
+    <select id="getMenuData_ok_bakup" resultType="HashMap" parameterType="String">
         select lt.kid,lt.name,IF(lt.subset = 1 or sub.pid is not null,1,0) isParent,lt.pid from
         (select sm.kid,sm.name,sm.subset,sm.order_by,sm.pid from sys_menu sm,(select menu_id from sys_user_menu where user_id = #{userId}
         union
