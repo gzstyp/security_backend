@@ -1095,7 +1095,7 @@ public final class ToolClient implements Serializable{
      * @创建时间 2020/5/23 23:26
     */
     public final static HashMap<String,String> getDoubleToken(final HttpServletRequest request){
-        final HashMap<String,String> map = new HashMap<String,String>();
+        final HashMap<String,String> map = new HashMap<String,String>(2);
         final String refresh_token = ToolString.wipeString(request.getHeader(ConfigFile.REFRESH_TOKEN));
         final String access_token = ToolString.wipeString(request.getHeader(ConfigFile.ACCESS_TOKEN));
         final String url_refresh_token = ToolString.wipeString(request.getParameter(ConfigFile.REFRESH_TOKEN));
