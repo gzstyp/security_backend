@@ -1,4 +1,4 @@
-package com.fwtai.dao;
+package com.fwtai.core;
 
 import com.fwtai.bean.PageFormData;
 import com.fwtai.datasource.DaoHandle;

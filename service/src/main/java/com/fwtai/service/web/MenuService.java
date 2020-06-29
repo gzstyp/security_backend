@@ -3,7 +3,7 @@ package com.fwtai.service.web;
 import com.fwtai.bean.Menu;
 import com.fwtai.bean.PageFormData;
 import com.fwtai.config.ConfigFile;
-import com.fwtai.dao.MenuDao;
+import com.fwtai.core.MenuDao;
 import com.fwtai.tool.ToolClient;
 import com.fwtai.tool.ToolMenuBean;
 import com.fwtai.tool.ToolMenuEntity;

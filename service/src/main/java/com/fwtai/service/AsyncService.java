@@ -1,6 +1,6 @@
 package com.fwtai.service;
 
-import com.fwtai.dao.AsyncDao;
+import com.fwtai.core.AsyncDao;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -57,8 +57,7 @@ public class AsyncService{
                 public void run() {
                     try {
                         System.out.println(index);
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
+                    } catch (final Exception e) {
                         e.printStackTrace();
                     }
                 }

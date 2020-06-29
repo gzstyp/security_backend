@@ -5,7 +5,7 @@ import com.fwtai.bean.PageFormData;
 import com.fwtai.bean.SysUser;
 import com.fwtai.config.ConfigFile;
 import com.fwtai.config.LocalUserId;
-import com.fwtai.dao.UserDao;
+import com.fwtai.core.UserDao;
 import com.fwtai.entity.User;
 import com.fwtai.tool.ToolClient;
 import com.fwtai.tool.ToolJWT;
