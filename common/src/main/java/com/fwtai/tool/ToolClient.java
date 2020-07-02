@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fwtai.bean.PageFormData;
 import com.fwtai.config.ConfigFile;
+import com.fwtai.config.FlagToken;
+import com.fwtai.config.LocalUserId;
 import com.fwtai.config.RenewalToken;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
@@ -600,6 +602,9 @@ public final class ToolClient implements Serializable{
                     writer.flush();
                 }
             }
+            FlagToken.remove();
+            LocalUserId.remove();
+            RenewalToken.remove();
 		}catch (IOException e){
 			logger.error("类ToolClient的方法responseJson出现异常",e.getMessage());
 		}finally{

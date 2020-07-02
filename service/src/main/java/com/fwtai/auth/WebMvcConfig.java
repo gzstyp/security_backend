@@ -1,9 +1,7 @@
 package com.fwtai.auth;
 
-import com.fwtai.config.ConfigFile;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -17,14 +15,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer{
-
-    /**
-     * 授权拦截的路径 addPathPatterns：拦截的路径 excludePathPatterns：不拦截的路径
-     */
-    @Override
-    public void addInterceptors(final InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**").excludePathPatterns(ConfigFile.IGNORE_URLS);
-    }
 
     @Override
     public void addCorsMappings(final CorsRegistry registry){
