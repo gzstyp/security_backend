@@ -141,7 +141,7 @@ public class UserDao{
      * @作者 田应平
      * @QQ 444141300
      * @创建时间 2020/5/1 0:53
-     */
+    */
     public SysUser getUserById(final String userId){
         return dao.queryForEntity("sys_user.getUserById",userId);
     }
@@ -164,9 +164,5 @@ public class UserDao{
 
     public List<HashMap<String,String>> getMenuData(final String userId){
         return dao.queryForListString("sys_user.getMenuData",userId);
-    }
-
-    public List<String> permissions(final HashMap<String,String> params){
-        return dao.queryListString("sys_user.permissions",params);
     }
 }

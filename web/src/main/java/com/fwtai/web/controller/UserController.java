@@ -35,11 +35,6 @@ public class UserController{
     @Resource
     private UserService userService;
 
-    @GetMapping("/permissions")
-    public void permissions(final HttpServletRequest request,final HttpServletResponse response){
-        ToolClient.responseJson(userService.permissions(new PageFormData(request)),response);
-    }
-
     @PostMapping("/renewalToken")
     public void renewalToken(final HttpServletRequest request,final HttpServletResponse response){
         final PageFormData formData = ToolClient.getFormData(request);

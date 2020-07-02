@@ -2,6 +2,7 @@ package com.fwtai.auth;
 
 import com.fwtai.config.ConfigFile;
 import com.fwtai.config.FlagToken;
+import com.fwtai.config.LocalUrl;
 import com.fwtai.config.LocalUserId;
 import com.fwtai.config.RenewalToken;
 import com.fwtai.service.UserServiceDetails;
@@ -37,7 +38,7 @@ public class RequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(final HttpServletRequest request,final HttpServletResponse response,final FilterChain chain) throws ServletException, IOException {
-        final String uri = request.getRequestURI();
+        String uri = request.getRequestURI();
         System.out.println("请求的uri-->"+uri);//访问两次很正常
         /*final String[] urls = ConfigFile.IGNORE_URLS;
         for(int x = 0; x < urls.length; x++){
@@ -86,6 +87,12 @@ public class RequestFilter extends OncePerRequestFilter {
                 //判断用户不为空，且SecurityContextHolder授权信息还是空的
                 final SecurityContext context = SecurityContextHolder.getContext();
                 LocalUserId.set(userId);
+                if(uri.contains("/listData")){
+                    if(uri.startsWith("/")){
+                        uri = uri.substring(1);
+                    }
+                    LocalUrl.set(uri);
+                }
                 if (userId != null && context.getAuthentication() == null) {
                     //通过用户信息得到UserDetails
                     final UserDetails userDetails = userDetailsService.getUserById(userId);

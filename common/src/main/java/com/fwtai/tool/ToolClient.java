@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fwtai.bean.PageFormData;
 import com.fwtai.config.ConfigFile;
 import com.fwtai.config.FlagToken;
+import com.fwtai.config.LocalUrl;
 import com.fwtai.config.LocalUserId;
 import com.fwtai.config.RenewalToken;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
@@ -605,6 +606,7 @@ public final class ToolClient implements Serializable{
             FlagToken.remove();
             LocalUserId.remove();
             RenewalToken.remove();
+            LocalUrl.remove();
 		}catch (IOException e){
 			logger.error("类ToolClient的方法responseJson出现异常",e.getMessage());
 		}finally{
@@ -1048,7 +1050,7 @@ public final class ToolClient implements Serializable{
      * @QQ号码 444141300
      * @官网 http://www.fwtai.com
      */
-    public final static String dataTableOK(List<Object> listData,Object total,final Object sEcho){
+    public final static String dataTableOK(List<Object> listData,Object total,final List<String> permissions,final Object sEcho){
         final JSONObject json = new JSONObject();
         if(listData != null && listData.size() <= 0){
             listData = new ArrayList();
@@ -1058,6 +1060,9 @@ public final class ToolClient implements Serializable{
         }else{
             json.put(ConfigFile.code,ConfigFile.code200);
             json.put(ConfigFile.msg,ConfigFile.msg200);
+            if(permissions != null && permissions.size() > 0){
+                json.put(ConfigFile.permissions,permissions);
+            }
         }
         json.put("sEcho",sEcho);
         json.put(ConfigFile.recordsTotal,total);
