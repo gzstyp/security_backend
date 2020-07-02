@@ -35,7 +35,6 @@ public class UserController{
     @Resource
     private UserService userService;
 
-    @PreAuthorize("hasAuthority('user:btn:listData')")
     @GetMapping("/permissions")
     public void permissions(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.permissions(new PageFormData(request)),response);
