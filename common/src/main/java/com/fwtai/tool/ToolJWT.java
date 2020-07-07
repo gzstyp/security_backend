@@ -7,7 +7,6 @@ import io.jsonwebtoken.JwtParserBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
-import sun.misc.BASE64Decoder;
 
 import java.io.Serializable;
 import java.security.KeyFactory;
@@ -15,6 +14,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -43,14 +43,14 @@ public class ToolJWT implements Serializable{
     private String issuer = "贵州富翁泰科技有限责任公司";//jwt签发者
 
     /**2048的密钥位的公钥*/
-    private String publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh3ewCTu1AMYu1sT2gW80oFBz4Je1cE20RJ1rh2ZUd9iifunHhnIlgtQUADaZDtth7sZvhGBls5oCHzWIujMWV0TXhjFdmk2r12oHqcdKGRSbqDdaJjMLqn3Uz/ySEHsQMRAoRFjZTc9UVlMltaGfubNCPdqBFPrIUHvvCvqbrE8dO3ObA0VOaEuQ6F5EBuSG3vyGRLkOb07+OryFBXj9JdF//8N8KzDsdSy8D6dQUSt7ntR8J1xIDZdRKNJJpVhdfPMi3+/X61H8iP5YC9nx0+0ULkZZDgA0rIFzoU5dXFH0GV9rhi6i8u9+4e8gP1b3zmcWXoS58nUna0p5hj8ujwIDAQAB";
+    private String publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv3gl5RjF9vTHCS2yr0zX3D50CKRiarMX+0qOpHAfcu24gWZ9bL39s48euPQniE2RhGxdMgyYSOePHLzzizGcOH3t9cyHzLU9NGVsY3dPZttbOUmsjdUB8BvUzVoj+uADkTlIRQv+ZBHP0Ze/cBLn2Z+PgAUi/XGRHnDXkjo+NjeFysHjqkUJ5U30gkSCK16I/vlD6c9V3bW+ZrQZ8ahbv3klG3MqYMMf1M7SCUSwZ9ITDgD/z5NdEBin3374/bkXPUpO5bmeX5p5f6nWWDfS2xrEukt5GuvbCAFZb4QbPGCJVP/haXS7X6WgrjwCGtMu1JxmH5Y/SL4mprExeiwGCwIDAQAB";
     /**2048的密钥位的私钥*/
-    private String privateKey = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCHd7AJO7UAxi7WxPaBbzSgUHPgl7VwTbREnWuHZlR32KJ+6ceGciWC1BQANpkO22Huxm+EYGWzmgIfNYi6MxZXRNeGMV2aTavXagepx0oZFJuoN1omMwuqfdTP/JIQexAxEChEWNlNz1RWUyW1oZ+5s0I92oEU+shQe+8K+pusTx07c5sDRU5oS5DoXkQG5Ibe/IZEuQ5vTv46vIUFeP0l0X//w3wrMOx1LLwPp1BRK3ue1HwnXEgNl1Eo0kmlWF188yLf79frUfyI/lgL2fHT7RQuRlkOADSsgXOhTl1cUfQZX2uGLqLy737h7yA/VvfOZxZehLnydSdrSnmGPy6PAgMBAAECggEAH4SpYHyT0GpL24xYDiVhiSsuysKBZG+v0YcOzaHxZTDyHbUmxxEnyRiuzp3lXp+MWZGxwIrtHqxmcfxyo1/fgs5xlrdFn/ESWjxBLC9B/jPdQ3Ydc2XNAQ3lxb5t/YekbMXlmIFTjdb/OFaAH5JLJ1mdv+ZmwgrXMGKla1iDf8NPHWxoPPdye2vUHoPPO9+VZazJkOYWQp7Gl7cEjSJy8rltAo3te6RMuVXAuNUdvyivm1FBM22nOxPKTPC/si5QOYCzTLCjLmJYqBcvPr93HXSsyh0xi3DAltmjHLCOMpBQjxasK1T1ULgIhRi1nzCJwox5N/jrF0UCPfO7GLFbgQKBgQDu7PQLtzwZ1S4Id+wPlpdKDsk29kBrSthiZivnQcHGPtf0JlxGky1SmLKeAjmszSIBltGc9qIjXIU+9x/DfxMNZRTg63xTr9toxztU7bRU6VfkKA2setKaTw1jlFU0qQwcALQiAasPcjkyaKg6bDNHCkNkytdsJX7FdbEgu2IkiwKBgQCRJgLSkIpsZo1J8cpaDTLkFCBACKJsMljnvgpdww+XQHzol6zIXwkaCQb6FJVI6tAC9ok+NIHSWIH/YMo4Mu34HxsFShOekvE4hISRY74X/5sxqAjugwWk+4CFVXDIeuLwA5hLXUaWXMLE3bjiMzQx7FQeBuGiahtLE5Wz6p7qjQKBgQCSm0ds4PS6DTt/6sYpEoim4sfJN/VzYKvCRVtvPcQ/d1Rf9iHtFGZdJmGD322wgPb67qaUoCoBdMY2SsFs3k68i2fyU80oNOJ3OrlHdcyPxdcuov0w9vS/xv46OkzGUWyiyjO+IjPq+HXsXpfLsZUNZFjSQj1JmQBe/cbAhPrF3QKBgGsXEWQL0qVx8HKLG5HfRRn0I2s7M6MCbofktb9B6KHeqYnuRkO7onp8CJLAVvhqjrhw7wdfNB1eweMKpYhbQyoawRPg+KK5pZHea/TdE2afZwB3Csf3EVYNXWCCjmjMCd2tuVJ5algL7oPTVtJFlw/yXomc6CKtiJ+Wvo/03fUNAoGAH9tknQuM+wq+s25q7ypExfPYyXarC/Jr2w4FQQXiz7d3tPhrxagR1S8ZaH2sIbZqpxscvvfnYDVtIeCxxmZpawEhJ7SruT9dYlGMmA6sFs0+D7naPo5CQk89BXzkAmJadgDzwT6f3LQ+D38BkVv64h/CiJmOPAa8Gwu+E5U3zW0=";
+    private String privateKey = "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC/eCXlGMX29McJLbKvTNfcPnQIpGJqsxf7So6kcB9y7biBZn1svf2zjx649CeITZGEbF0yDJhI548cvPOLMZw4fe31zIfMtT00ZWxjd09m21s5SayN1QHwG9TNWiP64AOROUhFC/5kEc/Rl79wEufZn4+ABSL9cZEecNeSOj42N4XKweOqRQnlTfSCRIIrXoj++UPpz1Xdtb5mtBnxqFu/eSUbcypgwx/UztIJRLBn0hMOAP/Pk10QGKfffvj9uRc9Sk7luZ5fmnl/qdZYN9LbGsS6S3ka69sIAVlvhBs8YIlU/+FpdLtfpaCuPAIa0y7UnGYflj9IviamsTF6LAYLAgMBAAECggEBAIFiMUlUqkGtOupq5PoslRmRYluMqayshSIcSbO4yKejGDDpDwxyfoPdzMbyxdwHfrPbfkaZ2DY7s6uZy4Fd7tEF181nfsTIHCnR96JnN1KsHELkFCRrsjmMtQpnRTT8N6zk5n8yEZ+RobtiLc0QGXgnqJK75d8Z5RSK8EEx9mQviJvEHw2BjiA1Yxzm46CGTsmUYi8dmpwpuHiHsqStg/5BZYOu5pqflC9NwzDvxYa/8gBrh1kb0k2gS3QKVZZc9Qce7GL/Kxkpa84MPznX4MRmxUAutw6nAW08yNoyl0f1ov1DQ+zAEZ37dQM0HLirlvdCnIc4BiU1s/0PKMazItECgYEA7/LLmTk5BtGoZME3Ry3ESgN9NOgzCBZRnUQaNkWXS19Z77b+Tbbj7F/Wl0Rv4ZTjN8moOIJFG16a5wQjZRokYG7LHqq23xJ4nhZATAezuaE2Jg/efHnEzTsVTrlAAVz2YmBCNjuZhbGXRBxdGCkx6gDpOWRFpHvJZvDMSwlGTj8CgYEAzEchaM2x6udS5xvmUuoHnn1+ydajhQULkR2bD9J+xqmY0oPAE9wL509E0du9c5pbAeEbp90EMujjnOw0IgqqjobjDplyABOue2wMRMMAFsvy1J3NE5UJObtQJl9ORyeh3DUiqRwNU0+eLWhk6KT9Jd9m/M+6kSDYWPwWU0dzbTUCgYALG7hlPYrwT+B12aQPfYTq0EKJon5KT44zs6VrAcnBSYbGXDhlrKPcm4s5sYdkcBocyQ8qno1IeRa+vyhMU+t/M2Hf55NTvG0tFGahnnGplFcHaBCqvpBn1+ZioJzf80fMwhwOmq++yrvwAUgmCDIxXR1u9L9sn/Zw95DdoG5KzQKBgQDL9ompNxhaTzY7g2PpjbqlyO/7X9BNVMhD0KeumKH0ggoQx3PVYHSSNFemohz7fDc6HSWb6dXzbw009bLn+nZpcMztGtD0urIQkcV+MqW4HVMMb7L/xmM7vYc9iRODgFLgqD0/VL8JXAm3lPCMSZBpbDJMYq0Jkx3xW2J/LGxXsQKBgQDLMGZlsQw5ITwLgg8KeuQ0VnYbExr97R6s4fCXhCBPVjMLmUFhSjItWcGR1D8Xg9vJcjs50GrCBxs6+KdeHI1EAmUbqsp8aDJE1AeWu6pqF1bp+u8oTsHxaImF0FT2cyWUgNgULkGCFv3UVK6L74v66jNmamiahlJ1Fi4AcqbJ9w==";
 
     /**java生成的私钥是pkcs8格式的公钥是x.509格式*/
     private PublicKey getPublicKey(){
         try {
-            final byte[] keyBytes = (new BASE64Decoder()).decodeBuffer(publicKey);
+            final byte[] keyBytes = Base64.getDecoder().decode(publicKey);
             final X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
             final KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             return keyFactory.generatePublic(keySpec);
@@ -62,7 +62,7 @@ public class ToolJWT implements Serializable{
 
     private PrivateKey getPrivateKey(){
         try {
-            final byte[] keyBytes = (new BASE64Decoder()).decodeBuffer(privateKey);
+            final byte[] keyBytes = Base64.getDecoder().decode(privateKey);
             final PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
             final KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             return keyFactory.generatePrivate(keySpec);
