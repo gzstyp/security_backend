@@ -29,56 +29,56 @@ public class RoleController{
     private RoleService roleService;
 
     /**添加*/
-    @PreAuthorize("hasAuthority('role:btn:add')")
+    @PreAuthorize("hasAuthority('role_btn_add')")
     @PostMapping("/add")
     public void add(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(roleService.add(ToolClient.getFormData(request)),response);
     }
 
     /**编辑*/
-    @PreAuthorize("hasAuthority('role:row:edit')")
+    @PreAuthorize("hasAuthority('role_row_edit')")
     @PostMapping("/edit")
     public void edit(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(roleService.edit(ToolClient.getFormData(request)),response);
     }
 
     /**删除-单行*/
-    @PreAuthorize("hasAuthority('role:row:delById')")
+    @PreAuthorize("hasAuthority('role_row_delById')")
     @PostMapping("/delById")
     public void delById(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(roleService.delById(ToolClient.getFormData(request)),response);
     }
 
     /**批量删除*/
-    @PreAuthorize("hasAuthority('role:btn:delByKeys')")
+    @PreAuthorize("hasAuthority('role_btn_delByKeys')")
     @PostMapping("/delByKeys")
     public void delByKeys(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(roleService.delByKeys(ToolClient.getFormData(request)),response);
     }
 
     /**获取数据*/
-    @PreAuthorize("hasAuthority('role:btn:listData')")
+    @PreAuthorize("hasAuthority('role_btn_listData')")
     @GetMapping("/listData")
     public void listData(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(roleService.listData(ToolClient.getFormData(request)),response);
     }
 
     /**行按钮清空菜单*/
-    @PreAuthorize("hasAuthority('role:row:delEmptyMenu')")
+    @PreAuthorize("hasAuthority('role_row_delEmptyMenu')")
     @PostMapping("/delEmptyMenu")
     public void delEmptyMenu(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(roleService.delEmptyMenu(ToolClient.getFormData(request)),response);
     }
 
     /**获取角色菜单*/
-    @PreAuthorize("hasAuthority('role:row:getRoleMenu')")
+    @PreAuthorize("hasAuthority('role_row_getRoleMenu')")
     @GetMapping("/getRoleMenu")
     public void getRoleMenu(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(roleService.getRoleMenu(ToolClient.getFormData(request)).replaceAll("\"false\"","false").replaceAll("\"true\"","true"),response);
     }
 
     /**保存角色菜单*/
-    @PreAuthorize("hasAuthority('role:row:saveRoleMenu')")
+    @PreAuthorize("hasAuthority('role_row_saveRoleMenu')")
     @PostMapping("/saveRoleMenu")
     public void saveRoleMenu(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(roleService.saveRoleMenu(ToolClient.getFormData(request)),response);

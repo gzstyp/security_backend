@@ -49,77 +49,77 @@ public class UserController{
     }
 
     /**添加*/
-    @PreAuthorize("hasAuthority('user:btn:add')")
+    @PreAuthorize("hasAuthority('user_btn_add')")
     @PostMapping("/add")
     public void add(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.add(ToolClient.getFormData(request)),response);
     }
 
     /**编辑*/
-    @PreAuthorize("hasAuthority('user:row:edit')")
+    @PreAuthorize("hasAuthority('user_row_edit')")
     @PostMapping("/edit")
     public void edit(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.edit(ToolClient.getFormData(request)),response);
     }
 
     /**删除-单行*/
-    @PreAuthorize("hasAuthority('user:row:delById')")
+    @PreAuthorize("hasAuthority('user_row_delById')")
     @PostMapping("/delById")
     public void delById(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.delById(ToolClient.getFormData(request)),response);
     }
 
     /**批量删除*/
-    @PreAuthorize("hasAuthority('user:btn:delByKeys')")
+    @PreAuthorize("hasAuthority('user_btn_delByKeys')")
     @PostMapping("/delByKeys")
     public void delByKeys(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.delByKeys(ToolClient.getFormData(request)),response);
     }
 
     /**获取数据*/
-    @PreAuthorize("hasAuthority('user:btn:listData')")
+    @PreAuthorize("hasAuthority('user_btn_listData')")
     @GetMapping("/listData")
     public void listData(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.listData(ToolClient.getFormData(request)),response);
     }
 
     /**获取角色数据*/
-    @PreAuthorize("hasAuthority('user:btn_row:getAllotRole')")
+    @PreAuthorize("hasAuthority('user_btn_row_getAllotRole')")
     @GetMapping("/getAllotRole")
     public void getAllotRole(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.getAllotRole(ToolClient.getFormData(request)),response);
     }
 
     /**保存分配角色*/
-    @PreAuthorize("hasAuthority('user:btn_row:saveAllotRole')")
+    @PreAuthorize("hasAuthority('user_btn_row_saveAllotRole')")
     @PostMapping("/saveAllotRole")
     public void saveAllotRole(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.saveAllotRole(ToolClient.getFormData(request)),response);
     }
 
     /**控制启禁用*/
-    @PreAuthorize("hasAuthority('user:row:editEnabled')")
+    @PreAuthorize("hasAuthority('user_row_editEnabled')")
     @PostMapping("/editEnabled")
     public void editEnabled(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.editEnabled(ToolClient.getFormData(request)),response);
     }
 
     /**根据指定userid获取菜单用于分配私有菜单*/
-    @PreAuthorize("hasAuthority('user:row:getOwnMenu')")
+    @PreAuthorize("hasAuthority('user_row_getOwnMenu')")
     @GetMapping("/getOwnMenu")
     public void getOwnMenu(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.getOwnMenu(ToolClient.getFormData(request)).replaceAll("\"false\"","false").replaceAll("\"true\"","true"),response);
     }
 
     /**保存私有菜单(用户菜单)*/
-    @PreAuthorize("hasAuthority('user:row:saveOwnMenu')")
+    @PreAuthorize("hasAuthority('user_row_saveOwnMenu')")
     @PostMapping("/saveOwnMenu")
     public void saveOwnMenu(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.saveOwnMenu(ToolClient.getFormData(request)),response);
     }
 
     /**查看指定userid权限菜单数据*/
-    @PreAuthorize("hasAuthority('user:row:getMenuData')")
+    @PreAuthorize("hasAuthority('user_row_getMenuData')")
     @GetMapping("/getMenuData")
     public void getMenuData(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(userService.getMenuData(ToolClient.getFormData(request)).replaceAll("\"false\"","false").replaceAll("\"true\"","true"),response);

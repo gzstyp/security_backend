@@ -78,7 +78,7 @@ public class UserController{
     }
 
     /**编辑*/
-    @PreAuthorize("hasAuthority('role:row:edit')")
+    @PreAuthorize("hasAuthority('role_row_edit')")
     @PostMapping("/edit")
     public void edit(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(ToolClient.createJsonSuccess("需要token才能访问edit成功"),response);

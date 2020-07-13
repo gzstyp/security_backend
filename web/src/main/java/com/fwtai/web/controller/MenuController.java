@@ -29,42 +29,42 @@ public class MenuController{
     private MenuService menuService;
 
     /**添加*/
-    @PreAuthorize("hasAuthority('menu:btn:add')")
+    @PreAuthorize("hasAuthority('menu_btn_add')")
     @PostMapping("/add")
     public void add(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.add(ToolClient.getFormData(request)),response);
     }
 
     /**编辑*/
-    @PreAuthorize("hasAuthority('menu:row:edit')")
+    @PreAuthorize("hasAuthority('menu_row_edit')")
     @PostMapping("/edit")
     public void edit(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.edit(ToolClient.getFormData(request)),response);
     }
 
     /**删除-单行*/
-    @PreAuthorize("hasAuthority('menu:row:delById')")
+    @PreAuthorize("hasAuthority('menu_row_delById')")
     @PostMapping("/delById")
     public void delById(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.delById(ToolClient.getFormData(request)),response);
     }
 
     /**获取数据*/
-    @PreAuthorize("hasAuthority('menu:btn:listData')")
+    @PreAuthorize("hasAuthority('menu_btn_listData')")
     @GetMapping("/listData")
     public void listData(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.listData(ToolClient.getFormData(request)),response);
     }
 
     /**获取详细信息*/
-    @PreAuthorize("hasAuthority('menu:row:queryById')")
+    @PreAuthorize("hasAuthority('menu_row_queryById')")
     @GetMapping("/queryById")
     public void queryById(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.queryById(ToolClient.getFormData(request)),response);
     }
 
     /**查询所有的菜单,用于添加或编辑菜单*/
-    @PreAuthorize("hasAuthority('menu:btn:queryTreeMenu')")
+    @PreAuthorize("hasAuthority('menu_btn_queryTreeMenu')")
     @GetMapping("/queryTreeMenu")
     public void queryTreeMenu(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(menuService.queryTreeMenu(ToolClient.getFormData(request)),response);
