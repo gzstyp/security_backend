@@ -327,10 +327,8 @@ public class UserService{
     //仅保存userId,userName,roles 即可
     public HashMap<String,String> buildToken(final String userId){
         final HashMap<String,String> token = new HashMap<>(2);
-        final String refresh_token = toolJWT.expireRefreshToken(userId);
-        final String access_token = toolJWT.expireAccessToken(userId);
-        token.put(ConfigFile.ACCESS_TOKEN,access_token);
-        token.put(ConfigFile.REFRESH_TOKEN,refresh_token);
+        token.put(ConfigFile.REFRESH_TOKEN,toolJWT.expireRefreshToken(userId));
+        token.put(ConfigFile.ACCESS_TOKEN,toolJWT.expireAccessToken(userId));
         return token;
     }
 }
