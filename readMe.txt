@@ -28,3 +28,10 @@ web --> auth --> service --> dao --> bean --> common
 使用token时，注意返回和请求做统一处理，即可
 
 IE浏览器对URL的GET请求最大限制为2083个字符，如果超过这个数字，提交按钮没有任何反应
+
+注解用法:
+@PreAuthorize("hasAuthority('shops_btn_add') or hasAuthority('shops_btn_add')")
+
+@PreAuthorize("hasRole('ROLE_admin') or hasAnyRole('ROLE_user')")
+
+@PreAuthorize("hasRole('ROLE_admin') and hasAnyRole('ROLE_user')")
