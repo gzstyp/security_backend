@@ -40,6 +40,10 @@ public class ToolJWT implements Serializable{
     /**一般更换新的accessToken小于5分钟则提示需要更换新的accessToken*/
     private final long refresh_token = 1000 * 60 * 40;//仅做token的是否需要更换新的accessToken标识,小于5分钟则提示需要更换新的accessToken
 
+    private final long app_access_token = 1000 * 60 * 60 * 24 * 15L;//15天
+
+    private final long app_refresh_token = 1000 * 60 * 60 * 24 * 7L;//7天
+
     private String issuer = "贵州富翁泰科技有限责任公司";//jwt签发者
 
     /**2048的密钥位的公钥*/
@@ -127,6 +131,14 @@ public class ToolJWT implements Serializable{
     /**生成带认证实体且有权限的token,最后个参数是含List<String>的角色信息,*/
     public String expireAccessToken(final String userId){
         return createToken(userId,null,access_token);
+    }
+
+    public String buildRefreshToken(final String userId){
+        return createToken(userId,null,app_refresh_token);
+    }
+
+    public String buildAccessToken(final String userId){
+        return createToken(userId,null,app_access_token);
     }
 
     private <T> T extractObjet(final String token,final Function<Claims,T> claimsResolver){

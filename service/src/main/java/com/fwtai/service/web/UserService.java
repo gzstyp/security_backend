@@ -331,4 +331,11 @@ public class UserService{
         token.put(ConfigFile.ACCESS_TOKEN,toolJWT.expireAccessToken(userId));
         return token;
     }
+
+    public HashMap<String,String> refreshToken(final String userId){
+        final HashMap<String,String> token = new HashMap<>(2);
+        token.put(ConfigFile.REFRESH_TOKEN,toolJWT.buildRefreshToken(userId));
+        token.put(ConfigFile.ACCESS_TOKEN,toolJWT.buildAccessToken(userId));
+        return token;
+    }
 }

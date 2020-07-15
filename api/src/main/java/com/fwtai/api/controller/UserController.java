@@ -37,13 +37,14 @@ public class UserController{
     private UserService userService;
 
     /*更新token*/
-    @PostMapping("/renewalToken")
-    public void renewalToken(final HttpServletRequest request,final HttpServletResponse response){
+    /*更新token*/
+    @PostMapping("/refreshToken")
+    public void refreshToken(final HttpServletRequest request,final HttpServletResponse response){
         final PageFormData formData = ToolClient.getFormData(request);
         final String access_token = formData.getString("accessToken");
         try {
             final String userId = toolJWT.extractUserId(access_token);
-            final HashMap<String,String> result = userService.buildToken(userId);
+            final HashMap<String,String> result = userService.refreshToken(userId);
             ToolClient.responseJson(ToolClient.queryJson(result),response);
         } catch (final JwtException exception){
             ToolClient.responseJson(ToolClient.tokenInvalid(),response);

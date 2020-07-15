@@ -40,11 +40,14 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
         final String userId = jwtUser.getUserId();
         //加载前端菜单
         final Map<String,Object> map = new HashMap<>(4);
-        map.put(ConfigFile.REFRESH_TOKEN,toolToken.expireRefreshToken(userId));
-        map.put(ConfigFile.ACCESS_TOKEN,toolToken.expireAccessToken(userId));
         if(type == null || type.isEmpty()){
+            map.put(ConfigFile.REFRESH_TOKEN,toolToken.expireRefreshToken(userId));
+            map.put(ConfigFile.ACCESS_TOKEN,toolToken.expireAccessToken(userId));
             map.put("menuData",menuService.getMenuData(userId));
             map.put("userName",jwtUser.getUsername());
+        }else{
+            map.put(ConfigFile.REFRESH_TOKEN,toolToken.buildRefreshToken(userId));
+            map.put(ConfigFile.ACCESS_TOKEN,toolToken.buildAccessToken(userId));
         }
         final String json = ToolClient.queryJson(map);
         ToolClient.responseJson(json,response);
