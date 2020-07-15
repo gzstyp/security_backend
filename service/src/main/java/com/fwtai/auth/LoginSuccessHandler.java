@@ -2,7 +2,7 @@ package com.fwtai.auth;
 
 import com.fwtai.bean.JwtUser;
 import com.fwtai.config.ConfigFile;
-import com.fwtai.service.web.MenuService;
+import com.fwtai.service.core.MenuService;
 import com.fwtai.tool.ToolClient;
 import com.fwtai.tool.ToolJWT;
 import org.springframework.security.core.Authentication;

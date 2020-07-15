@@ -1,6 +1,6 @@
 package com.fwtai.web.controller;
 
-import com.fwtai.service.web.MenuService;
+import com.fwtai.service.core.MenuService;
 import com.fwtai.tool.ToolClient;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

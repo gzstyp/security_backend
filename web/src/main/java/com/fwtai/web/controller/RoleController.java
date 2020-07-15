@@ -1,6 +1,6 @@
 package com.fwtai.web.controller;
 
-import com.fwtai.service.web.RoleService;
+import com.fwtai.service.core.RoleService;
 import com.fwtai.tool.ToolClient;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
