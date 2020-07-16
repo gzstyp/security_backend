@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 13/07/2020 20:35:57
+ Date: 16/07/2020 22:39:19
 */
 
 SET NAMES utf8mb4;
@@ -159,9 +159,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('ffffffffbd471a55ffffffff976c6d1b', 'typ', 1, '2020-04-13 19:55:34', 0, '2020-06-26 02:19:34', 40, 0, '2020-06-26 02:19:34');
-INSERT INTO `sys_user` VALUES ('ffffffffddf9f1ffffffffff88888888', 'admin', 1, '2020-04-15 22:39:30', 0, '2020-07-13 20:32:00', 78, 0, '2020-07-13 20:32:00');
-INSERT INTO `sys_user` VALUES ('fffffffffe6d0469ffffffff8645e06b', 't', 1, '2020-06-26 02:16:48', 0, '2020-06-26 02:20:43', 4, 0, '2020-06-26 02:20:43');
+INSERT INTO `sys_user` VALUES ('ffffffffddf9f1ffffffffff88888888', 'admin', 1, '2020-04-15 22:39:30', 0, '2020-07-16 22:06:13', 80, 0, '2020-07-16 22:06:13');
 
 -- ----------------------------
 -- Table structure for sys_user_menu
@@ -173,27 +171,6 @@ CREATE TABLE `sys_user_menu`  (
   `menu_id` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单id(sys_menu.kid)',
   PRIMARY KEY (`kid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户菜单(私有菜单)' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_user_menu
--- ----------------------------
-INSERT INTO `sys_user_menu` VALUES ('14c48891b71011eaabec00505625d758', 'fffffffffe6d0469ffffffff8645e06b', 'ffffffff8b559df0ffffffff834bba04');
-INSERT INTO `sys_user_menu` VALUES ('14c48b72b71011eaabec00505625d758', 'fffffffffe6d0469ffffffff8645e06b', 'ffffffff8c468a55ffffffff8f59d635');
-INSERT INTO `sys_user_menu` VALUES ('14c48d0ab71011eaabec00505625d758', 'fffffffffe6d0469ffffffff8645e06b', '000000002d8402d60000000072f7dea2');
-INSERT INTO `sys_user_menu` VALUES ('14c48dadb71011eaabec00505625d758', 'fffffffffe6d0469ffffffff8645e06b', 'ffffffff9db05c1000000000002e5179');
-INSERT INTO `sys_user_menu` VALUES ('8b7aaa2c85ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', 'ffffffff8b559df0ffffffff834bba04');
-INSERT INTO `sys_user_menu` VALUES ('8b7aafaa85ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', 'ffffffffe56e8ef0ffffffff912af74a');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab14485ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', '0000000006a9099300000000100d10cd');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab24785ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', '000000000ba93c43ffffffffe5c59508');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab2df85ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', '000000005c41138100000000288a6b45');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab3a885ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', '0000000058e2ec83000000002f978e03');
-INSERT INTO `sys_user_menu` VALUES ('8b7ab44185ef11ea978d02004a400001', 'ffffffffab9fc98dffffffff8b642b39', 'fffffffff051bf04ffffffffa2ae3c8e');
-INSERT INTO `sys_user_menu` VALUES ('b4e910f18a2e11ea978d02004a400001', 'ffffffffbd471a55ffffffff976c6d1b', 'ffffffff8b559df0ffffffff834bba04');
-INSERT INTO `sys_user_menu` VALUES ('b4e914968a2e11ea978d02004a400001', 'ffffffffbd471a55ffffffff976c6d1b', 'ffffffff8c468a55ffffffff8f59d635');
-INSERT INTO `sys_user_menu` VALUES ('b4e9156e8a2e11ea978d02004a400001', 'ffffffffbd471a55ffffffff976c6d1b', '000000002d8402d60000000072f7dea2');
-INSERT INTO `sys_user_menu` VALUES ('f46b6f6fba9411ea940100505625d758', 'ffffffffddf9f1ffffffffff88888888', 'ffffffff8b559df0ffffffff834bba04');
-INSERT INTO `sys_user_menu` VALUES ('f46b71b5ba9411ea940100505625d758', 'ffffffffddf9f1ffffffffff88888888', '111fffffbd911aa0ffffffffd5637fff');
-INSERT INTO `sys_user_menu` VALUES ('f46b7233ba9411ea940100505625d758', 'ffffffffddf9f1ffffffffff88888888', 'ffffffffc5419f0cffffffffcb2c5e84');
 
 -- ----------------------------
 -- Table structure for sys_user_password
@@ -209,9 +186,7 @@ CREATE TABLE `sys_user_password`  (
 -- ----------------------------
 -- Records of sys_user_password
 -- ----------------------------
-INSERT INTO `sys_user_password` VALUES ('ffffffffbd471a55ffffffff976c6d1b', '$2a$10$0RMwdx0AcIcyc0woFAiaHu8f25lubmPWoKyeCXDj3gMiGTqB5SL7W');
 INSERT INTO `sys_user_password` VALUES ('ffffffffddf9f1ffffffffff88888888', '$2a$10$2swupMvymbSVqW1qHWaxCuI4rv/Er6EdSqlVTKqe.wTqgGUGhLaDm');
-INSERT INTO `sys_user_password` VALUES ('fffffffffe6d0469ffffffff8645e06b', '$2a$10$nrTIjPeFvnWB4LR2XeJdLOxPkpkEBYEVEkPD3saM0e0yc2fF.RJ/W');
 
 -- ----------------------------
 -- Table structure for sys_user_role
