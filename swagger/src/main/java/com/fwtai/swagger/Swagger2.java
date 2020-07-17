@@ -1,17 +1,14 @@
 package com.fwtai.swagger;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.ParameterBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.Parameter;
 import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -20,6 +17,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static springfox.documentation.builders.PathSelectors.regex;
 
 /**
  * swagger2配置,注意扫描的包名!!!
@@ -36,67 +35,50 @@ public class Swagger2{
 
     //swagger2的配置文件,打开 http://127.0.0.1:801/swagger-ui.html
     @Bean
-    public Docket docketV1(){// 创建API基本信息
-        return docket("v1.0.0");
+    public Docket docketV1() {
+        return platformApi("v1.0.0");
     }
 
-    @Bean
-    public Docket docketV2(){// 创建API基本信息
-        return docket("v1.0.1");
-    }
-
-    private Docket docket(final String groupName){
-        final ParameterBuilder ticketPar = new ParameterBuilder();
-        final List<Parameter> pars = new ArrayList<Parameter>();
-        ticketPar.name("accessToken").description("accessToken").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
-        ticketPar.name("refreshToken").description("refreshToken").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
-        pars.add(ticketPar.build());
-        return new Docket(DocumentationType.SWAGGER_2).groupName(groupName)//多版本时指定名称
-          .apiInfo(apiInfo()).enable(true)//是否开启swagger
+    public Docket platformApi(final String groupName) {
+        return new Docket(DocumentationType.SWAGGER_2).groupName(groupName).apiInfo(apiInfo()).forCodeGeneration(true)
           .select()
-          //扫描该包下的所有需要在Swagger中展示的API，@ApiIgnore注解标注的除外(若不想在swagger上面显示接口文档直接把扫描的包名改下即可)
-          .apis(RequestHandlerSelectors.basePackage("com.fwtai.api.controller"))
-          .paths(PathSelectors.any())
+          .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+          .paths(regex("^.*(?<!error)$"))
           .build()
           .securitySchemes(securitySchemes())
           .securityContexts(securityContexts());
     }
 
-    private List<ApiKey> securitySchemes() {
-        final List<ApiKey> apiKeyList= new ArrayList();
-        apiKeyList.add(new ApiKey("accessToken", "accessToken","header"));
-        apiKeyList.add(new ApiKey("refreshToken", "refreshToken","header"));
+    private List<ApiKey> securitySchemes(){
+        final List<ApiKey> apiKeyList = new ArrayList();
+        apiKeyList.add(new ApiKey("accessToken","accessToken","header"));
+        apiKeyList.add(new ApiKey("refreshToken","refreshToken","header"));
         return apiKeyList;
     }
 
-    private List<SecurityContext> securityContexts() {
-        final List<SecurityContext> securityContexts=new ArrayList<>();
+    private List<SecurityContext> securityContexts(){
+        final List<SecurityContext> securityContexts = new ArrayList<>();
         securityContexts.add(
           SecurityContext.builder()
             .securityReferences(defaultAuth())
-            .forPaths(PathSelectors.regex("^(?!auth).*$"))
+            .forPaths(regex("^(?!auth).*$"))
             .build());
         return securityContexts;
     }
 
-    private List<SecurityReference> defaultAuth() {
-        final AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+    private List<SecurityReference> defaultAuth(){
         final AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
+        authorizationScopes[0] = new AuthorizationScope("global","accessEverything");;
         final List<SecurityReference> securityReferences = new ArrayList<>();
-        securityReferences.add(new SecurityReference("Authorization", authorizationScopes));
+        securityReferences.add(new SecurityReference("accessToken", authorizationScopes));
+        securityReferences.add(new SecurityReference("refreshToken", authorizationScopes));
         return securityReferences;
     }
 
-    private ApiInfo apiInfo(){
-        return new ApiInfoBuilder()
-          .title("项目接口文档")
-          .description("swagger-接口文档<br />若是报错java.lang.NumberFormatException异常,如请求参数里有int类型的添加 example = \"1\"<br />另外，可以使用@ApiIgnore注解标注的除外，不显示,该注解可以在类或方法上使用<br />如果不显示请检查扫描的包名是否正确")//API描述
-          .version("v1.0")//版本号
-          .contact(new Contact("引路者","http://www.yinlz.com","444141300@qq.com"))
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder().title("水西天香豆宴").description("©2020 Copyright. 驼峰科技有限责任公司<br />")
           .termsOfServiceUrl("http://www.yinlz.com")
-          .license("保密版本")
-          .licenseUrl("http://www.yinlz.com")
-          .build();
+          .contact(new Contact("api接口文档", "", "444141300@qq.com")).license("保密版本")
+          .licenseUrl("http://www.yinlz.com").version("v1.0").build();
     }
 }
