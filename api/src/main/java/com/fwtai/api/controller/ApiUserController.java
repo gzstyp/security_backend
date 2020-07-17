@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class ApiUserController{
 
+    //实际上是不走这个方法!!!
     @ApiOperation(value = "小程序登录功能", notes = "要求输入账号(用户名)、登录密码、type类型为3")
     @ApiImplicitParams({
       @ApiImplicitParam(name = "username", value = "登录账号(用户名|手机号)", dataType = "String", paramType = "query", required = true),
