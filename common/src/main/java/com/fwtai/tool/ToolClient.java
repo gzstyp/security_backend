@@ -1191,6 +1191,7 @@ public final class ToolClient implements Serializable{
                 uploadFile.setFullPath(fullPath);
                 uploadFile.setFileName(fileName);
                 uploadFile.setBasePath(baseDir);
+                uploadFile.setName(key);
                 files.add(uploadFile);
             }
             if(bl){
