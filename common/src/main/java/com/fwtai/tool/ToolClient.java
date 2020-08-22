@@ -54,7 +54,7 @@ import java.util.concurrent.ConcurrentHashMap;
 */
 public final class ToolClient implements Serializable{
 
-	private static long serialVersionUID = 1L;
+	private final static long serialVersionUID = 1L;
 
     private static Logger logger = LoggerFactory.getLogger(ToolClient.class);
 
