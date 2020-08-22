@@ -496,7 +496,7 @@ public final class ToolClient implements Serializable{
 	 * @QQ号码 444141300
 	 * @官网 http://www.fwtai.com
 	*/
-	public final static String jsonArray(final List<Map<String, Object>> listData){
+	public final static String jsonArray(final List<?> listData){
 		return JSONArray.toJSONString(listData);
 	}
 
