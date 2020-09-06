@@ -23,6 +23,6 @@ public class WebMvcConfig implements WebMvcConfigurer{
             .allowedMethods("PUT","DELETE","GET","POST","OPTIONS")
             .allowedHeaders("*")
             .allowCredentials(true)
-            .maxAge(7200l);//默认值是 1800 seconds (即30分钟)
+            .maxAge(7200L);//默认值是 1800 seconds (即30分钟)
     }
 }
