@@ -161,7 +161,6 @@ public final class ToolClient implements Serializable{
 		}else{
 			json.put(ConfigFile.code,ConfigFile.code199);
 			json.put(ConfigFile.msg,ConfigFile.msg199);
-			json.put(ConfigFile.data,rows);
 			return json.toJSONString();
 		}
 	}
@@ -183,7 +182,6 @@ public final class ToolClient implements Serializable{
         }else{
             json.put(ConfigFile.code,ConfigFile.code199);
             json.put(ConfigFile.msg,ConfigFile.msg199);
-            json.put(ConfigFile.data,rows);
             return json.toJSONString();
         }
     }
@@ -208,7 +206,6 @@ public final class ToolClient implements Serializable{
 		}else{
 			json.put(ConfigFile.code,ConfigFile.code199);
 			json.put(ConfigFile.msg,failure);
-			json.put(ConfigFile.data,rows);
 			return json.toJSONString();
 		}
 	}
