@@ -1,6 +1,7 @@
 package com.fwtai.api.controller;
 
 import com.fwtai.bean.PageFormData;
+import com.fwtai.config.ConfigFile;
 import com.fwtai.service.core.UserService;
 import com.fwtai.tool.ToolClient;
 import com.fwtai.tool.ToolJWT;
@@ -27,7 +28,7 @@ import java.util.HashMap;
 */
 @Api(tags = "app端用户中心")
 @RestController
-@RequestMapping("/api/v1.0/user")
+@RequestMapping(ConfigFile.api_v10 + "user")
 public class UserController{
 
     @Resource

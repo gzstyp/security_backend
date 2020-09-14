@@ -25,6 +25,8 @@ public final class ConfigFile implements Serializable{
 
     public final static String REFRESH_TOKEN = "refreshToken";
 
+    public final static String api_v10 = "/api/v1.0/";
+
 	/**自定义code及msg*/
 	public final static int code198 = 198;
 	/**操作失败*/
