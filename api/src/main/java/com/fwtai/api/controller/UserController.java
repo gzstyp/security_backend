@@ -8,6 +8,7 @@ import com.fwtai.tool.ToolJWT;
 import io.jsonwebtoken.JwtException;
 import io.swagger.annotations.Api;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -84,5 +85,10 @@ public class UserController{
     @PostMapping("/edit")
     public void edit(final HttpServletRequest request,final HttpServletResponse response){
         ToolClient.responseJson(ToolClient.createJsonSuccess("需要token才能访问edit成功"),response);
+    }
+
+    @GetMapping("/rest")
+    public void rest(final HttpServletResponse response){
+        ToolClient.responseJson(ToolClient.createJsonSuccess("操作成功"),response);
     }
 }
