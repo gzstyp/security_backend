@@ -37,9 +37,9 @@ public class MenuService{
         final String p_pid = "pid";
         final String p_type = "type";
         final String p_subset = "subset";
-        final String validate = ToolClient.validateField(pageFormData,new String[]{p_name,p_permission,p_url,p_category,p_type,p_subset});
+        final String validate = ToolClient.validateField(pageFormData,p_name,p_permission,p_url,p_category,p_type,p_subset);
         if(validate != null)return validate;
-        final String fieldInteger = ToolClient.validateInteger(pageFormData,new String[]{"category","subset","type"});
+        final String fieldInteger = ToolClient.validateInteger(pageFormData,"category","subset","type");
         if(fieldInteger != null)return fieldInteger;
         final String order_by = pageFormData.getString("order_by");
         if(order_by != null){
@@ -104,9 +104,9 @@ public class MenuService{
         final String p_pid = "pid";
         final String p_type = "type";
         final String p_subset = "subset";
-        final String validate = ToolClient.validateField(pageFormData,new String[]{p_name,p_permission,p_url,p_category,p_type,p_subset,p_kid,p_pid});
+        final String validate = ToolClient.validateField(pageFormData,p_name,p_permission,p_url,p_category,p_type,p_subset,p_kid,p_pid);
         if(validate != null)return validate;
-        final String fieldInteger = ToolClient.validateInteger(pageFormData,new String[]{"category","subset","type"});
+        final String fieldInteger = ToolClient.validateInteger(pageFormData, "category","subset","type");
         if(fieldInteger != null)return fieldInteger;
         final String order_by = pageFormData.getString("order_by");
         if(order_by != null){
