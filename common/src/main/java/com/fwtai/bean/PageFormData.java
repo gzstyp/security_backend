@@ -178,7 +178,7 @@ public final class PageFormData extends HashMap<String,Object>{
                 Map<String,String > maps = JSON.parseObject(request.getInputStream(),Map.class);
                 dataMap.putAll(maps);
                 request.setAttribute("body",dataMap);
-            }catch (IOException e) {
+            }catch (final IOException e) {
                 e.printStackTrace();
             }
             return dataMap;
