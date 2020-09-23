@@ -1,7 +1,6 @@
 package com.fwtai.tool;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fwtai.bean.PageFormData;
 import com.fwtai.bean.UploadFile;
@@ -494,7 +493,7 @@ public final class ToolClient implements Serializable{
 	 * @官网 http://www.fwtai.com
 	*/
 	public static String jsonArray(final List<?> listData){
-		return JSONArray.toJSONString(listData);
+		return JSON.toJSONString(listData);
 	}
 
 
