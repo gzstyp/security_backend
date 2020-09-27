@@ -10,7 +10,7 @@
     <description>
         前后端分离项目建议不要存储在session中，存储在redis中，redis存储需要一个key，key一同返回给前端用于验证输入
 
-        前后端分离的验证码解决方案
+        前后端分离的验证码解决方案 https://blog.csdn.net/weixin_39819191/article/details/89472602
 
         逻辑是这样：
         前后端分离 登录验证码 方案
