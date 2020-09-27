@@ -8,6 +8,7 @@
     <version>v1.0.0</version>
     <url>http://www.yinlz.com</url>
     <description>
+        前后端分离项目建议不要存储在session中，存储在redis中，redis存储需要一个key，key一同返回给前端用于验证输入
         打包时,先执行父工程的pom.xml的install命令,再在web或api或frontend执行package操作
         spring boot 2.3.x + spring security 构建模块化后端开发
         基于spring boot 2.x.x构建模块化开发,支持SqlSessionTemplate和mapper
