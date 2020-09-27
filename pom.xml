@@ -9,6 +9,17 @@
     <url>http://www.yinlz.com</url>
     <description>
         前后端分离项目建议不要存储在session中，存储在redis中，redis存储需要一个key，key一同返回给前端用于验证输入
+
+        前后端分离的验证码解决方案
+
+        逻辑是这样：
+        前后端分离 登录验证码 方案
+        后端生成图片 验证码字符串 uuid
+        uuid为key  验证码字符串为value
+        传递bs64图片 和uuid给前端
+        前端在登录的时候 传递 账号 密码 验证码 uuid
+        通过uuid获取 验证码 验证
+
         打包时,先执行父工程的pom.xml的install命令,再在web或api或frontend执行package操作
         spring boot 2.3.x + spring security 构建模块化后端开发
         基于spring boot 2.x.x构建模块化开发,支持SqlSessionTemplate和mapper
