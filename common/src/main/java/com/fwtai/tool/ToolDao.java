@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 数据库操作工具类
  * @功能 本工具类封装直接对数据库的添加、删除、更新、查询；<br />
  * 即增删改放在一个方法里；查询放在一个方法里
  * @作者 田应平
@@ -23,8 +24,10 @@ public final class ToolDao{
 
     private Connection connection;
 
+    //使用默认的数据库连接
     public ToolDao(){}
 
+    //指定数据库连接
     public ToolDao(final Connection connection){
         this.connection = connection;
     }
@@ -54,7 +57,7 @@ public final class ToolDao{
 	 * @throws SQLException 数据库操作异常
 	 * @作者 田应平
 	 * @创建时间 2013年12月21日15:03:03
-	 */
+	*/
 	public boolean executeSql(final String sql,final List<Object> list){
         final Connection conn = getConn();
         PreparedStatement pstmt = null;
