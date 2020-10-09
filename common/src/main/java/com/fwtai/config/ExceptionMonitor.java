@@ -89,7 +89,8 @@ public class ExceptionMonitor{
     }
 
     @ExceptionHandler({SocketTimeoutException.class,MyBatisSystemException.class,DataAccessException.class})
-    public void socketTimeoutException(final HttpServletResponse response){
+    public void socketTimeoutException(final Exception exception,final HttpServletResponse response){
+        exception.printStackTrace();
         ToolClient.responseJson(ToolClient.exceptionJson(),response);
     }
 
