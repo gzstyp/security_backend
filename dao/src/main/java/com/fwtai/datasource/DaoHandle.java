@@ -419,7 +419,7 @@ public class DaoHandle{
         map.put(ConfigFile.rows,sqlSession.selectList(sqlMapIdListData,params));
         final String url = LocalUrl.get();
         if(url != null){
-            final HashMap<String,String> permissions = new HashMap<String,String>();
+            final HashMap<String,String> permissions = new HashMap<String,String>(2);
             permissions.put("userId",LocalUserId.get());
             permissions.put("url",url);
             map.put(ConfigFile.permissions,sqlSession.selectList("sys_user.permissions",permissions));
