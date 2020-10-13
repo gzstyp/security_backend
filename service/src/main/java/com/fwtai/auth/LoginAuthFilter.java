@@ -39,7 +39,7 @@ public class LoginAuthFilter extends UsernamePasswordAuthenticationFilter{
         }
         final String username = params.get(p_username);
         final String password = params.get(p_password);
-        final String ip = request.getRemoteAddr();
+        final String ip = ToolClient.getIp(request);
         final boolean blocked = toolAttack.isBlocked(ip);
         if(blocked){
             final String msg = "帐号或密码错误次数过多,IP<br/>"+ip+"<br/>已被系统屏蔽,请30分钟后重试!";
