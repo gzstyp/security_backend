@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 防暴力破解
+ * 防暴力破解|防IP攻击
  * @作者 田应平
  * @版本 v1.0
  * @创建时间 2020-06-25 16:54
@@ -27,9 +27,9 @@ public class ToolAttack{
 
     private final Integer MAX_ATTACK = 5 ;//5次登录失败则记录ip,注意nginx代理时的处理ip
 
-    private LoadingCache<String,Integer> attackCache;
+    private final LoadingCache<String,Integer> attackCache;
 
-    private LoadingCache<String,String> lockTime;
+    private final LoadingCache<String,String> lockTime;
 
     public ToolAttack(){
         this.attackCache = CacheBuilder.newBuilder().expireAfterWrite(30,TimeUnit.MINUTES).build(new CacheLoader<String,Integer>(){
