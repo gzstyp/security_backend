@@ -21,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
         registry.addMapping("/**")
             .allowedOrigins("http://www.fwtai.com","https://www.fwtai.com","http://192.168.3.108","http://127.0.0.1:8080","http://192.168.3.108:8080","http://api.i8id.com")//同源配置*表示任何请求都视为同源，若需指定ip和端口可以改为如“localhost：8080”，多个以“,”分隔；
             .allowedMethods("GET","POST","OPTIONS")
-            .allowedHeaders("content-type")
+            .allowedHeaders("*")
             .allowCredentials(true)
             .maxAge(7200L);//默认值是 1800 seconds (即30分钟)
     }
