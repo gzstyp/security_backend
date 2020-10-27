@@ -27,6 +27,8 @@ public final class ConfigFile implements Serializable{
 
     public final static String api_v10 = "/api/v1.0/";
 
+    public final static String title = "<title>系统提示</title>";
+
 	/**自定义code及msg*/
 	public final static int code198 = 198;
 	/**操作失败*/
