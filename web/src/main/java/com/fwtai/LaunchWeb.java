@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAsync
 public class LaunchWeb{
 
-    public static void main(String[] args){
+    public static void main(final String[] args){
         SpringApplication.run(LaunchWeb.class,args);
     }
 }
