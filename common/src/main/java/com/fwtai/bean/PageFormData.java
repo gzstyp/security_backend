@@ -211,7 +211,7 @@ public final class PageFormData extends HashMap<String,Object>{
         final Object value = get(key);
         if(value == null)return null;
         final String strVal = (String) value;
-        if(strVal.length() == 0 || "null".equalsIgnoreCase(strVal))return null;
+        if(strVal.trim().length() == 0 || "null".equalsIgnoreCase(strVal.trim()))return null;
         return String.valueOf(value).trim();
     }
 
@@ -221,7 +221,7 @@ public final class PageFormData extends HashMap<String,Object>{
         if(value instanceof Integer)return (Integer) value;
         if(value instanceof String){
             final String strVal = (String) value;
-            if(strVal.length() == 0 || "null".equalsIgnoreCase(strVal))return null;
+            if(strVal.trim().length() == 0 || "null".equalsIgnoreCase(strVal.trim()))return null;
         }
         return Integer.parseInt(String.valueOf(value));
     }
