@@ -71,7 +71,7 @@ public final class ToolClient implements Serializable{
         if(object == null || object.toString().trim().length() <= 0){
             return queryEmpty();
         }
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(3);
         if (object instanceof Exception) {
             json.put(ConfigFile.code,ConfigFile.code204);
             json.put(ConfigFile.msg,ConfigFile.msg204);
@@ -135,7 +135,7 @@ public final class ToolClient implements Serializable{
 	 * @主页 http://www.fwtai.com
 	*/
 	private static String queryEmpty(){
-		final JSONObject json = new JSONObject();
+		final JSONObject json = new JSONObject(2);
 		json.put(ConfigFile.code,ConfigFile.code201);
 		json.put(ConfigFile.msg,ConfigFile.msg201);
 		return json.toJSONString();
@@ -151,7 +151,7 @@ public final class ToolClient implements Serializable{
 	 * @官网 http://www.fwtai.com
 	*/
 	public static String executeRows(final int rows){
-		final JSONObject json = new JSONObject();
+		final JSONObject json = new JSONObject(3);
 		if(rows > 0){
 			json.put(ConfigFile.code,ConfigFile.code200);
 			json.put(ConfigFile.msg,ConfigFile.msg200);
@@ -172,7 +172,7 @@ public final class ToolClient implements Serializable{
      * @创建时间 2020/1/19 11:31
     */
     public static String executeRows(final int rows,final String success){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(3);
         if(rows > 0){
             json.put(ConfigFile.code,ConfigFile.code200);
             json.put(ConfigFile.msg,success);
@@ -196,7 +196,7 @@ public final class ToolClient implements Serializable{
 	 * @官网 http://www.fwtai.com
 	*/
 	public static String executeRows(final int rows,final String success,final String failure){
-		final JSONObject json = new JSONObject();
+		final JSONObject json = new JSONObject(3);
 		if(rows > 0){
 			json.put(ConfigFile.code,ConfigFile.code200);
 			json.put(ConfigFile.msg,success);
@@ -220,7 +220,7 @@ public final class ToolClient implements Serializable{
 	 * @主页 http://www.fwtai.com
 	*/
 	public static String createJson(final int code,final String msg){
-		final JSONObject json = new JSONObject();
+		final JSONObject json = new JSONObject(2);
 		json.put(ConfigFile.code,code);
 		json.put(ConfigFile.msg,msg);
 		return json.toJSONString();
@@ -237,7 +237,7 @@ public final class ToolClient implements Serializable{
      * @主页 http://www.fwtai.com
     */
     public static String createJson(final String code,final String msg){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(2);
         json.put(ConfigFile.code,code);
         json.put(ConfigFile.msg,msg);
         return json.toJSONString();
@@ -287,7 +287,7 @@ public final class ToolClient implements Serializable{
      * @创建时间 2019/7/29 15:00
     */
     public static String createJsonFail(final String msg){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(2);
         json.put(ConfigFile.code,ConfigFile.code199);
         json.put(ConfigFile.msg,msg);
         return json.toJSONString();
@@ -301,7 +301,7 @@ public final class ToolClient implements Serializable{
      * @创建时间 2019/7/29 15:00
     */
     public static String createJsonSuccess(final String msg){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(2);
         json.put(ConfigFile.code,ConfigFile.code200);
         json.put(ConfigFile.msg,msg);
         return json.toJSONString();
@@ -316,7 +316,7 @@ public final class ToolClient implements Serializable{
 	 * @主页 http://www.fwtai.com
 	*/
 	private static String jsonValidateKey(){
-		final JSONObject json = new JSONObject();
+		final JSONObject json = new JSONObject(2);
 		json.put(ConfigFile.code,ConfigFile.code203);
 		json.put(ConfigFile.msg,ConfigFile.msg203);
 		return json.toJSONString();
@@ -331,7 +331,7 @@ public final class ToolClient implements Serializable{
 	 * @主页 http://www.fwtai.com
 	*/
 	public static String jsonValidateField(){
-		final JSONObject json = new JSONObject();
+		final JSONObject json = new JSONObject(2);
 		json.put(ConfigFile.code,ConfigFile.code202);
 		json.put(ConfigFile.msg,ConfigFile.msg202);
 		return json.toJSONString();
@@ -420,7 +420,7 @@ public final class ToolClient implements Serializable{
     }
 
     private static String jsonValidateInteger(){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(2);
         json.put(ConfigFile.code,ConfigFile.code199);
         json.put(ConfigFile.msg,"参数类型有误");
         return json.toJSONString();
@@ -506,7 +506,7 @@ public final class ToolClient implements Serializable{
 	 * @主页 http://www.fwtai.com
 	*/
 	public static String exceptionJson(){
-		final JSONObject json = new JSONObject();
+		final JSONObject json = new JSONObject(2);
 		json.put(ConfigFile.code,ConfigFile.code204);
 		json.put(ConfigFile.msg,ConfigFile.msg204);
 		return json.toJSONString();
@@ -522,7 +522,7 @@ public final class ToolClient implements Serializable{
 	 * @主页 http://www.fwtai.com
 	*/
 	public static String exceptionJson(final String msg){
-		final JSONObject json = new JSONObject();
+		final JSONObject json = new JSONObject(2);
 		json.put(ConfigFile.code,ConfigFile.code204);
 		json.put(ConfigFile.msg,msg);
 		return json.toJSONString();
@@ -563,7 +563,7 @@ public final class ToolClient implements Serializable{
 	 * @官网 http://www.fwtai.com
 	*/
 	public static String jsonNotLogin(){
-		final JSONObject json = new JSONObject();
+		final JSONObject json = new JSONObject(2);
 		json.put(ConfigFile.code,ConfigFile.code205);
 		json.put(ConfigFile.msg,ConfigFile.msg205);
 		return json.toJSONString();
@@ -580,8 +580,7 @@ public final class ToolClient implements Serializable{
     */
     public static void responseJson(final String json){
         try {
-            final HttpServletResponse response = getResponse();
-            responseJson(json,response);
+            responseJson(json,getResponse());
         } catch (Exception e) {}
     }
 
@@ -1010,7 +1009,7 @@ public final class ToolClient implements Serializable{
      * @创建时间 2020/3/1 0:13
      */
     public static String notAuthorized(){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(2);
         json.put(ConfigFile.code,ConfigFile.code401);
         json.put(ConfigFile.msg,ConfigFile.msg401);
         return json.toJSONString();
@@ -1024,14 +1023,14 @@ public final class ToolClient implements Serializable{
      * @创建时间 2020/4/19 21:00
     */
     public static String tokenInvalid(){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(2);
         json.put(ConfigFile.code,ConfigFile.code205);
         json.put(ConfigFile.msg,ConfigFile.TOKEN_INVALID);
         return json.toJSONString();
     }
 
     public static String tokenInvalid(final String msg){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(2);
         json.put(ConfigFile.code,ConfigFile.code205);
         json.put(ConfigFile.msg,msg);
         return json.toJSONString();
@@ -1044,7 +1043,7 @@ public final class ToolClient implements Serializable{
      * @创建时间 2020/5/1 0:16
      */
     public static String invalidUserInfo(){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(2);
         json.put(ConfigFile.code,ConfigFile.code206);
         json.put(ConfigFile.msg,ConfigFile.msg206);
         return json.toJSONString();
@@ -1061,7 +1060,7 @@ public final class ToolClient implements Serializable{
      * @官网 http://www.fwtai.com
      */
     public static String dataTableOK(List<Object> listData,Object total,final List<String> permissions,final Object sEcho){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(7);
         if(listData == null || listData.size() == 0){
             listData = new ArrayList<Object>();
             total = 0;
@@ -1082,7 +1081,7 @@ public final class ToolClient implements Serializable{
     }
 
     public static String dataTableException(final Object sEcho){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(6);
         json.put(ConfigFile.code,ConfigFile.code204);
         json.put(ConfigFile.msg,ConfigFile.msg204);
         json.put("sEcho",sEcho);
@@ -1125,7 +1124,7 @@ public final class ToolClient implements Serializable{
     }
 
     public static String jsonPage(final Object listData,final Integer total,final List<String> permissions){
-        final JSONObject json = new JSONObject();
+        final JSONObject json = new JSONObject(5);
         if(listData == null || total == 0){
             json.put(ConfigFile.code,ConfigFile.code201);
             json.put(ConfigFile.msg,ConfigFile.msg201);
