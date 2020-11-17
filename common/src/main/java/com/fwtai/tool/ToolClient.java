@@ -610,7 +610,7 @@ public final class ToolClient implements Serializable{
                     writer.write(JSON.parseObject(json).fluentPut("renewal","token").toJSONString());
                     writer.flush();
                 }else{
-                    writer.write(String.valueOf(JSON.parse(json)));
+                    writer.write(json);
                     writer.flush();
                 }
             }
@@ -618,7 +618,7 @@ public final class ToolClient implements Serializable{
             LocalUserId.remove();
             RenewalToken.remove();
             LocalUrl.remove();
-		}catch (IOException e){
+		}catch (final IOException e){
 			logger.error("类ToolClient的方法responseJson出现异常",e.getMessage());
 		}finally{
 			if(writer != null){
