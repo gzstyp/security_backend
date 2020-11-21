@@ -30,6 +30,13 @@
         select menu_id from sys_user_menu where user_id = #{userId}) ltb,sys_menu sm where sm.kid = ltb.menu_id
     </select>
 
+    <!-- 获取用户的全部角色和权限,(暂时用不到) -->
+    <select id="getAllRolePermissions" resultType="HashMap" parameterType="String">
+        SELECT su.id,su.username,su.password,lt.roles FROM (
+            SELECT ur.user_id,GROUP_CONCAT(sr.role_name) roles from sys_role sr,user_role ur WHERE ur.user_id = #{userId} AND sr.kid = ur.role_id GROUP BY ur.user_id
+        ) lt , sys_user su WHERE su.id = lt.user_id
+    </select>
+
     <select id="queryUser" resultType="User" parameterType="String">
         SELECT error_count,DATE_FORMAT(error_time,'%Y-%m-%d %H:%i:%S') error_time,(NOW() - error_time) error FROM view_user_login WHERE user_name = #{userName} LIMIT 1
     </select>
