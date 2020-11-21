@@ -63,7 +63,7 @@ public class LoginAuthFilter extends UsernamePasswordAuthenticationFilter{
             //在此处理锁定功能!!!
             final User user = userService.queryUser(username);
             if(user != null){
-                final Integer errorCount = user.getErrorCount() + 1;
+                final int errorCount = user.getErrorCount() + 1;
                 if(errorCount < 4){
                     userService.updateErrors(username);
                 }
