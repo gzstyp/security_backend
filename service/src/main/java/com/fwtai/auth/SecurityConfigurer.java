@@ -92,7 +92,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         //第4步：拦截账号、密码。覆盖 UsernamePasswordAuthenticationFilter过滤器
         http.addFilterAt(authenticationFilter(),UsernamePasswordAuthenticationFilter.class);
 
-        //第5步：拦截token，并检测。在 UsernamePasswordAuthenticationFilter 之前添加 JwtAuthenticationTokenFilter
+        //第5步：鉴权,拦截token，并检测。在 UsernamePasswordAuthenticationFilter 之前添加 JwtAuthenticationTokenFilter
         http.addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
 
         //第6步：处理异常情况：认证失败和权限不足
