@@ -27,7 +27,7 @@ public class UserServiceDetails implements UserDetailsService{
     private AsyncService asyncService;
 
     /**
-     * 通过账号查找用户信息,用于登录
+     * 通过账号查找用户信息,用于登录,它会走认证失败的回调,即方法 unsuccessfulAuthentication()
      * @param username
      * @return
      * @throws UsernameNotFoundException
