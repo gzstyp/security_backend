@@ -33,7 +33,7 @@ public class UserServiceDetails implements UserDetailsService{
      * @throws UsernameNotFoundException
     */
     @Override
-    public UserDetails loadUserByUsername(final String username){
+    public UserDetails loadUserByUsername(final String username){//登录认证,若登录失败,即找不到用户信息时它会走认证失败的回调,即方法 unsuccessfulAuthentication()
         final SysUser user = userService.getUserByUserName(username);
         if(user != null){
             final Integer enabled = user.getEnabled();
