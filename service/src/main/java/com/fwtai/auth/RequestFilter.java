@@ -107,7 +107,6 @@ public class RequestFilter extends OncePerRequestFilter {
                 }
             } catch (final Exception exception){
                 RenewalToken.remove();
-                System.out.println("你真的需要重新登录");
                 FlagToken.set(3);
                 /*if(exception instanceof ExpiredJwtException){
                     System.out.println("你真的需要重新登录");

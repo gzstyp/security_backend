@@ -613,13 +613,13 @@ public final class ToolClient implements Serializable{
                     writer.flush();
                 }
             }
+		}catch (final IOException e){
+			logger.error("类ToolClient的方法responseJson出现异常",e.getMessage());
+		}finally{
             FlagToken.remove();
             LocalUserId.remove();
             RenewalToken.remove();
             LocalUrl.remove();
-		}catch (final IOException e){
-			logger.error("类ToolClient的方法responseJson出现异常",e.getMessage());
-		}finally{
 			if(writer != null){
 				writer.close();
                 writer = null;
