@@ -6,7 +6,6 @@ import com.fwtai.service.core.MenuService;
 import com.fwtai.tool.ToolClient;
 import com.fwtai.tool.ToolJWT;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +34,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
         final String type = request.getParameter("type");//除了PC端之外都要这个参数,登录类型1 为android ; 2 ios;3 小程序
         //取得账号信息
         final JwtUser jwtUser = (JwtUser) authentication.getPrincipal();
-        SecurityContextHolder.getContext().setAuthentication(authentication);
         //取token,先去缓存中找,好的解决方案,登录成功后token存储到缓存数据库中,只要token还在过期内，不需要每次重新生成
         final String userId = jwtUser.getUserId();
         //加载前端菜单
