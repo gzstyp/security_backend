@@ -2,6 +2,7 @@ package com.fwtai.auth;
 
 import com.fwtai.tool.ToolClient;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,9 @@ import java.io.IOException;
 @Component
 public class LogoutSuccessService implements LogoutSuccessHandler {
     @Override
-    public void onLogoutSuccess(HttpServletRequest request,HttpServletResponse response,Authentication authentication) throws IOException, ServletException{
+    public void onLogoutSuccess(final HttpServletRequest request,final HttpServletResponse response,final Authentication authentication) throws IOException, ServletException{
         final String json = ToolClient.createJsonSuccess("退出注销成功");
+        SecurityContextHolder.clearContext();
         ToolClient.responseJson(json,response);
     }
 }
