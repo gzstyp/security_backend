@@ -94,7 +94,7 @@ public class RequestFilter extends OncePerRequestFilter {
                 }
                 if (userId != null && context.getAuthentication() == null) {
                     //通过用户信息得到UserDetails
-                    final UserDetails userDetails = userDetailsService.getUserById(userId);//返回总记录数!!!todo,可根据url一起关联查询
+                    final UserDetails userDetails = userDetailsService.getUserById(userId,uri.startsWith("/") ? uri.substring(1) : uri);//返回总记录数!!!todo,可根据url一起关联查询
                     //验证令牌有效性
                     final boolean validata = toolToken.validateToken(access,userId);
                     if (validata){

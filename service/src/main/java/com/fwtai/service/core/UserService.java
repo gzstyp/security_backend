@@ -43,8 +43,11 @@ public class UserService{
     private String SUPER_KEY = "ffffffffddf9f1ffffffffff88888888";
 
     // 仅仅获取用户userId的角色和权限
-    public List<String> getRolePermissions(final String userId){
-        return userDao.getRolePermissions(userId);
+    public List<String> getRolePermissions(final String userId,final String url){
+        final HashMap<String,String> params = new HashMap<String,String>();
+        params.put("url",url);
+        params.put("userId",userId);
+        return userDao.getRolePermissions(params);
     }
 
     /**

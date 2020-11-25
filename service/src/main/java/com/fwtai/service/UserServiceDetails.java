@@ -27,22 +27,20 @@ public class UserServiceDetails implements UserDetailsService{
     private AsyncService asyncService;
 
     /**
-     * 通过账号查找用户信息,用于登录,它会走认证失败的回调,即方法 unsuccessfulAuthentication()
+     * 通过账号查找用户信息,用于登录,它会走认证失败的回调,即方法 unsuccessfulAuthentication(),但是不走啦,已经在 com.fwtai.auth.LoginAuthFilter处理了
      * @param username
      * @return
      * @throws UsernameNotFoundException
     */
     @Override
-    public UserDetails loadUserByUsername(final String username){//登录认证,若登录失败,即找不到用户信息时它会走认证失败的回调,即方法 unsuccessfulAuthentication()
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException{//登录认证,若登录失败,即找不到用户信息时它会走认证失败的回调,即方法 unsuccessfulAuthentication()
         final SysUser user = userService.getUserByUserName(username);
-        if(user != null){
-            final Integer enabled = user.getEnabled();
-            if(enabled == 0){
-                asyncService.updateLogin(username);
-            }
-            return new JwtUser(user.getKid(),user.getUserName(),user.getUserPassword(),enabled);
+        if(user == null) throw new UsernameNotFoundException("账号或密码有误");//其实不走这个的,因为已在com.fwtai.auth.LoginAuthFilter处理了
+        final Integer enabled = user.getEnabled();
+        if(enabled == 0){
+            asyncService.updateLogin(username);
         }
-        throw new RuntimeException("账号或密码错误");
+        return new JwtUser(user.getKid(),user.getUserName(),user.getUserPassword(),enabled);
     }
 
     /**
@@ -52,10 +50,10 @@ public class UserServiceDetails implements UserDetailsService{
      * @QQ 444141300
      * @创建时间 2020/5/1 0:49
     */
-    public UserDetails getUserById(final String userId){
+    public UserDetails getUserById(final String userId,final String url){
         final SysUser user = userService.getUserById(userId);
         if(user != null){
-            final List<String> roles =  userService.getRolePermissions(userId);
+            final List<String> roles =  userService.getRolePermissions(userId,url);
             final List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             for (final String role : roles){
                 authorities.add(new SimpleGrantedAuthority(role));

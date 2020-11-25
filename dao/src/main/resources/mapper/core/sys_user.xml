@@ -15,8 +15,8 @@
         SELECT kid,user_name, user_password,enabled FROM VIEW_USER_LOGIN WHERE kid = #{userId} LIMIT 1
     </select>
 
-    <!-- 用户的全部角色和权限(含角色、用户菜单+角色菜单[权限]) -->
-    <select id="getRolePermissions" resultType="String" parameterType="String">
+    <!-- 用户的全部角色和权限(含角色、用户菜单+角色菜单[权限])返回全部数据不科学!!! -->
+    <select id="get_Role_Permissions_Bakup" resultType="String" parameterType="String">
         select sr.role_flag from sys_user_role sur
         left join sys_role sr on sr.kid = sur.role_id
         where sur.user_id = #{userId}
@@ -28,6 +28,25 @@
         )
         union
         select menu_id from sys_user_menu where user_id = #{userId}) ltb,sys_menu sm where sm.kid = ltb.menu_id
+    </select>
+
+    <!-- 用户的全部角色和权限(含角色、用户菜单+角色菜单[权限]) -->
+    <select id="getRolePermissions" resultType="String" parameterType="HashMap">
+        select sr.role_flag from sys_user_role sur
+        left join sys_role sr on sr.kid = sur.role_id where sur.user_id = #{userId}
+        union all
+        select sm.permission from (select lr.kid from (select sm.kid from (select distinct srm.menu_id from sys_role_menu srm where srm.role_id in (
+            select sr.kid from sys_user_role sur
+            left join sys_role sr on sr.kid = sur.role_id
+            where sur.user_id = #{userId}
+        )
+        union
+        select menu_id from sys_user_menu where user_id = #{userId}) ltb,sys_menu sm where sm.kid = ltb.menu_id) lt,
+          (select kid from sys_menu where pid = (
+        select kid from sys_menu where url = #{url})
+        union
+        select kid from sys_menu where pid = (
+        select pid from sys_menu where url = #{url})) lr where lr.kid =lt.kid) ilt,sys_menu sm where sm.kid = ilt.kid
     </select>
 
     <!-- 获取用户的全部角色和权限,(暂时用不到) -->

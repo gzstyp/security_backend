@@ -130,8 +130,8 @@ public class UserDao{
     }
 
     // 仅仅获取用户userId的角色和权限
-    public List<String> getRolePermissions(final String userId){
-        return dao.queryListEntity("sys_user.getRolePermissions",userId);
+    public List<String> getRolePermissions(final HashMap<String,String> params){
+        return dao.queryListEntity("sys_user.getRolePermissions",params);
     }
 
     /**
