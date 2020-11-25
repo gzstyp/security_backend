@@ -30,7 +30,6 @@ public class AuthenticationPointHandler implements AuthenticationEntryPoint{
                     System.out.println("更换accessToken"+ RenewalToken.get());
                     break;
                 case 2:
-                    System.out.println("无效的refreshToken"+ RenewalToken.get());
                     json = ToolClient.tokenInvalid();
                     break;
                 case 3:
@@ -40,7 +39,7 @@ public class AuthenticationPointHandler implements AuthenticationEntryPoint{
                     break;
             }
         }
-        System.out.println("++++++++++++++"+exception.getMessage()+"++++++++++++++");
+        System.out.println("++++++++++++++未登录认证处理或token无效:"+exception.getMessage()+"++++++++++++++");
         ToolClient.responseJson(json,response);
         // todo 处理 ThreadLocal
     }

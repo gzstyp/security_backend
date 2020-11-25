@@ -59,12 +59,7 @@ public class RequestFilter extends OncePerRequestFilter {
         //final String refreshToken = request.getHeader(ConfigFile.refreshToken);
         //final String token = request.getHeader(header);
         if(refresh != null && access != null){
-            //判断令牌是否过期，默认是一周,比较好的解决方案是：
-            //登录成功获得token后，将token存储到数据库（redis）
-            //将数据库版本的token设置过期时间为15~30分钟
-            //如果数据库中的token版本过期，重新刷新获取新的token
-            //注意：刷新获得新token是在token过期时间内有效。
-            //如果token本身的过期（1周），强制登录，生成新token。
+            //判断令牌是否过期，默认是一周,比较好的解决方案是：登录成功获得token后，将token存储到数据库（redis）
             try {
                 toolToken.parser(refresh);
             } catch (final Exception e) {
@@ -72,11 +67,9 @@ public class RequestFilter extends OncePerRequestFilter {
                     //标记为 该更换token了呢
                     FlagToken.set(1);
                     RenewalToken.set(access);
-                    //chain.doFilter(request,response);
                 }else{
                     //标记为 token 无效
                     FlagToken.set(2);
-                    System.out.println("无效的token");
                 }
             }
             try {
@@ -93,32 +86,23 @@ public class RequestFilter extends OncePerRequestFilter {
                 }
                 final SecurityContext context = SecurityContextHolder.getContext();
                 if (userId != null && context.getAuthentication() == null) {
-                    //通过用户信息得到UserDetails
-                    final UserDetails userDetails = userDetailsService.getUserById(userId,uri.startsWith("/") ? uri.substring(1) : uri);//返回总记录数!!!todo,可根据url一起关联查询
                     //验证令牌有效性
                     final boolean validata = toolToken.validateToken(access,userId);
                     if (validata){
-                        // 将用户信息存入 authentication，方便后续校验,这个方法是要保存角色权限信息的
+                        final UserDetails userDetails = userDetailsService.getUserById(userId,uri.startsWith("/") ? uri.substring(1) : uri);
                         final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                         //authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));//用于限流或黑名单处理???
                         context.setAuthentication(authentication);//存放权限信息,否则会提示‘没有操作权限’
                     }else{
                         FlagToken.set(2);
-                        chain.doFilter(request,response);
                     }
                 }
             } catch (final Exception exception){
                 RenewalToken.remove();
                 FlagToken.set(3);
-                /*if(exception instanceof ExpiredJwtException){
-                    System.out.println("你真的需要重新登录");
-                    FlagToken.set(3);
-                }else{
-                    FlagToken.set(2);
-                }*/
             }
-            //chain.doFilter(request, response);
         }
+        // todo 勿删,因为没有最终会执行这个,若是上面还有个执行 chain.doFilter(request,response); 此时肯定会报错!!!又因为没有角色权限信息,所以要被 AuthenticationEntryPoint 实现类拦截下来并执行
         chain.doFilter(request,response);
     }
 }
