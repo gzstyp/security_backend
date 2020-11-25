@@ -84,7 +84,6 @@ public class RequestFilter extends OncePerRequestFilter {
                 final String userId = toolToken.extractUserId(access);
                 // todo 根据userId 从 redis ，获取用户 authentication 角色权限信息
                 //判断用户不为空，且SecurityContextHolder授权信息还是空的
-                final SecurityContext context = SecurityContextHolder.getContext();
                 LocalUserId.set(userId);
                 if(uri.contains("/listData")){
                     if(uri.startsWith("/")){
@@ -92,6 +91,7 @@ public class RequestFilter extends OncePerRequestFilter {
                     }
                     LocalUrl.set(uri);
                 }
+                final SecurityContext context = SecurityContextHolder.getContext();
                 if (userId != null && context.getAuthentication() == null) {
                     //通过用户信息得到UserDetails
                     final UserDetails userDetails = userDetailsService.getUserById(userId,uri.startsWith("/") ? uri.substring(1) : uri);//返回总记录数!!!todo,可根据url一起关联查询
@@ -102,6 +102,9 @@ public class RequestFilter extends OncePerRequestFilter {
                         final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                         //authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));//用于限流或黑名单处理???
                         context.setAuthentication(authentication);//存放权限信息,否则会提示‘没有操作权限’
+                    }else{
+                        FlagToken.set(2);
+                        chain.doFilter(request,response);
                     }
                 }
             } catch (final Exception exception){
