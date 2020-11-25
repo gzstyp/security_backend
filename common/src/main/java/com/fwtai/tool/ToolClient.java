@@ -1157,28 +1157,6 @@ public final class ToolClient implements Serializable{
     }
 
     /**
-     * 从请求参数或者header获取双token
-     * @param request
-     * @作者 田应平
-     * @QQ 444141300
-     * @创建时间 2020/5/23 23:26
-    */
-    public static HashMap<String,String> getDoubleToken(final HttpServletRequest request){
-        final HashMap<String,String> map = new HashMap<String,String>(2);
-        final String refresh_token = ToolString.wipeString(request.getHeader(ConfigFile.REFRESH_TOKEN));
-        final String access_token = ToolString.wipeString(request.getHeader(ConfigFile.ACCESS_TOKEN));
-        final String url_refresh_token = ToolString.wipeString(request.getParameter(ConfigFile.REFRESH_TOKEN));
-        final String url_access_token = ToolString.wipeString(request.getParameter(ConfigFile.ACCESS_TOKEN));
-        final String refresh = refresh_token == null ? url_refresh_token : refresh_token;
-        final String access = access_token == null ? url_access_token : access_token;
-        if(refresh != null && access != null){
-            map.put(ConfigFile.ACCESS_TOKEN,access);
-            map.put(ConfigFile.REFRESH_TOKEN,refresh);
-        }
-        return map;
-    }
-
-    /**
      * 封装文件上传,指定上传的目录,返回值HashMap_String,Object>,files,params,error
      * @param baseDir 该值的结尾必须要带 /
      * @param limit 如果该值为null或为负数时则不限制文件数
