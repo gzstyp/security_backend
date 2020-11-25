@@ -68,7 +68,6 @@ public class RequestFilter extends OncePerRequestFilter {
             try {
                 toolToken.parser(refresh);
             } catch (final Exception e) {
-                System.out.println(e.getClass());
                 if(e instanceof ExpiredJwtException){
                     //标记为 该更换token了呢
                     FlagToken.set(1);
@@ -95,9 +94,9 @@ public class RequestFilter extends OncePerRequestFilter {
                 }
                 if (userId != null && context.getAuthentication() == null) {
                     //通过用户信息得到UserDetails
-                    final UserDetails userDetails = userDetailsService.getUserById(userId);
+                    final UserDetails userDetails = userDetailsService.getUserById(userId);//返回总记录数!!!todo,可根据url一起关联查询
                     //验证令牌有效性
-                    final boolean validata = toolToken.validateToken(access,userId);;
+                    final boolean validata = toolToken.validateToken(access,userId);
                     if (validata){
                         // 将用户信息存入 authentication，方便后续校验,这个方法是要保存角色权限信息的
                         final UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
